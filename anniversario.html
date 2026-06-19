@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Per Micia gatta 🤍</title>
+
+  <style>
+    body {
+      background-color: #0a0015;
+      color: #f0d8ff;
+      font-family: Georgia, serif;
+      text-align: center;
+      padding: 40px;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      font-size: 36px;
+      color: #f9d4ff;
+    }
+
+    p {
+      font-size: 18px;
+      color: #c9a8e0;
+    }
+
+    .stella {
+      position: fixed;
+      border-radius: 50%;
+      background: white;
+      animation: lampeggia 3s infinite ease-in-out;
+    }
+
+    @keyframes lampeggia {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.2; }
+    }
+
+    #galassia {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      margin: 2rem auto;
+    }
+
+    #centro {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 36px;
+      cursor: default;
+    }
+
+    .stella-ricordo {
+      position: absolute;
+      font-size: 24px;
+      cursor: pointer;
+      transition: transform 0.2s;
+      transform: translate(-50%, -50%);
+    }
+
+    .stella-ricordo:hover {
+      transform: translate(-50%, -50%) scale(1.4);
+    }
+
+    #riquadro {
+      max-width: 500px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(200,150,255,0.3);
+      border-radius: 16px;
+      padding: 1.5rem;
+    }
+
+    #titolo-ricordo {
+      font-size: 16px;
+      color: #c9a8e0;
+      margin-bottom: 10px;
+    }
+
+    #testo-ricordo {
+      font-size: 15px;
+      color: #f0d8ff;
+      line-height: 1.8;
+    }
+    
+    #introduzione {
+  max-width: 560px;
+  margin: 1.5rem auto 2rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(200,150,255,0.25);
+  border-radius: 16px;
+  padding: 1.2rem 1.8rem;
+  font-size: 15px;
+  color: #dcc8f8;
+  line-height: 2;
+  font-style: italic;
+}
+
+#giardino {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  max-width: 560px;
+  margin: 2.5rem auto;
+}
+
+.fiore {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: sboccia 1.5s ease both;
+  transform-origin: bottom center;
+}
+
+@keyframes sboccia {
+  0%   { opacity: 0; transform: scale(0) translateY(30px); }
+  60%  { transform: scale(1.15) translateY(-5px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.petali {
+  position: relative;
+  width: 60px;
+  height: 60px;
+}
+
+.petalo {
+  position: absolute;
+  width: 20px;
+  height: 28px;
+  border-radius: 50% 50% 50% 50%;
+  top: 50%; left: 50%;
+  transform-origin: bottom center;
+  opacity: 0.85;
+}
+
+.centro-fiore {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff0a0;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.stelo {
+  width: 3px;
+  height: 40px;
+  background: linear-gradient(to bottom, #4a9e4a, #2d6e2d);
+  border-radius: 2px;
+  margin-top: 2px;
+}
+
+.foglia {
+  position: absolute;
+  width: 14px;
+  height: 8px;
+  background: #4a9e4a;
+  border-radius: 50%;
+  top: 12px;
+}
+
+.foglia.sinistra {
+  left: -10px;
+  transform: rotate(-30deg);
+}
+
+.foglia.destra {
+  right: -10px;
+  transform: rotate(30deg);
+}
+  </style>
+
+</head>
+<body>
+
+  <div id="sfondo-stelle"></div>
+
+  <h1>Per Micia gatta 🤍</h1>
+  <p id="giorni"></p>
+  <div id="introduzione">
+  <p>Ciao amore mio, ho fatto questo piccolo lavoretto per te perché ci tenevo<br>
+  ad applicare le mie capacità informatiche nella nostra relazione...<br>
+  ci ho messo più di una settimana e ci ho lavorato praticamente ogni giorno<br>
+  e qualche volta anche la notte (non vedevo l'ora di finirlo).<br>
+  Spero ti piaccia. MIIII 🤍</p>
+</div>
+
+  <div id="galassia">
+    <div id="centro">🤍</div>
+  </div>
+
+  <div id="riquadro">
+    <div id="giardino"></div>
+    <div id="titolo-ricordo">La nostra storia</div>
+    <div id="testo-ricordo">Clicca su una stella per rivivere un ricordo speciale.</div>
+  </div>
+
+  <script>
+    // --- giorni insieme ---
+    const inizio = new Date('2025-06-24');
+    const oggi = new Date();
+    const giorni = Math.floor((oggi - inizio) / (1000 * 60 * 60 * 24));
+    document.getElementById('giorni').textContent = giorni + ' giorni insieme. 🤍';
+
+    // --- stelle di sfondo ---
+    const sfondo = document.getElementById('sfondo-stelle');
+    for (let i = 0; i < 80; i++) {
+      const s = document.createElement('div');
+      s.className = 'stella';
+      const dim = Math.random() * 2.5 + 0.8;
+      s.style.width  = dim + 'px';
+      s.style.height = dim + 'px';
+      s.style.left   = Math.random() * 100 + 'vw';
+      s.style.top    = Math.random() * 100 + 'vh';
+      s.style.animationDelay    = Math.random() * 3 + 's';
+      s.style.animationDuration = (2 + Math.random() * 3) + 's';
+      sfondo.appendChild(s);
+    }
+
+    // --- ricordi ---
+    const ricordi = [
+      { emoji: '👀', nome: 'Prima volta che ti ho vista',   testo: 'amore mio, ormai è troppo tempo che ti dico quello che ho provato il giorno che ti ho vista, ma non stancherò mai di ricordarmelo e di dirtelo: guardarti per la prima volta è stato un colpo al cuore fuori da ogni universo, in quel momento ho sentito che qualcosa dentro di me era cambiato e tutto era fiorito... con quel tuo muso triste e gli occhi grandi come il tuo cuore, sei riuscita a rendere uno sguardo surreale qualcosa di reale' },
+      { emoji: '💬', nome: 'Le prime parole',               testo: 'ricordo ancora la timidezza e la paura di parlarti per la prima volta, la timidezza di due ragazzi che si guardano e non si parlano, la paura di non sapere cosa dire al momento giusto e poi... la paura che si trasforma in coraggio e fa iniziare la nostra storia, un momento magico che mi ricordo ancora a memoria, la nostra prima parola: un ciao timido...' },
+      { emoji: '💋', nome: 'Il primo bacio',                testo: 'mentre tutti ballano, festeggiano e cantano, una coppia è seduta su una panchina dei giardini il 24 Giugno 2025: dopo una lunga uscita di sguardi, discorsi, battute e risate tu mi raccontasti i tuoi traumi importanti e io, quasi commosso, ti baciai perchè mi resi conto che avevo accanto a me una stella spenta che aveva bisogno di essere accesa e così ti baciai...' },
+      { emoji: '🏰', nome: 'Reggia di Rivalta',             testo: 'Probabilmente uno dei momenti più belli della nostra storia, non tanto per il luogo o per altro, ma perchè è stato un momento di rivoluzione nella nostra relazione, sento che da quel momento tutto è cominciato a cambiare in meglio e siamo riusciti a goderci tutto nella nostra vita, quel momento è stato delicato, romantico, divertente e sorprendente per la sua semplicità, perchè in quel momento eravamo davvero solo io e te dopo tanto tempo...' },
+      { emoji: '🤗', nome: 'Coccole e bacini',                testo: 'So di certo che le persone che ci vedono al di fuori di noi si chiedano come facciamo a stare così attaccati, perchè io credo fortemente che non esista al mondo una coppia più coccolosa e affettuosa di noi due, che ogni volta, indipendentemente dal momento che stiamo passando, cerchiamo sempre il contatto fisico e in qualche modo una vicinanza che rompa delle barriere quando ci sono... vojo sempre coche ' },
+      { emoji: '🍦', nome: 'Il zelato insieme',             testo: 'Ed ecco perchè ti ho chiesto quali sono i momenti speciali per te, beh per me è quando ci prendiamo il zelato, è come se fosse un momento a parte dove siamo io te e il zelato. Diciamo quindi che la nostra relazione è spesso basata dal cibo, ma va bene cosi perche in qualche modo quando mangiamo insieme troviamo della quotidianità e del benessere. VOJO ZELATO ADESO' },
+      { emoji: '😂', nome: 'risate e divertimento',               testo: 'Forse il momento più bello di ogni nostra uscita o chiamata, la presa per il culo tra noi due è nata subito, non c è stato bisogno di una presa di confidenza o altro, ci siamo subito piaciuti e abbiamo subito riso e scherzato, hai una vita difficile amore mio e non sai quanto sia importante e bello per me vederti sorridere sia con il viso che con il cuore, ogni momento di gioia con te equivale a un momento di gloria per me!! ps: io ti faccio ridere di più' },
+      { emoji: '🕊️', nome: 'Dopo ogni litigata...',           testo: 'Dopo la tempesta c è sempre il sole, questa è la frase e noi il significato, abbiamo avuto tanti momenti dove sembrava che tutto stesse andando a rotoli, abbiamo avuto tanti momenti di incomprensione e di fraintendimento, ma comunque grazie alla nostra perseveranza siamo riusciti ad affrontarli a testa alta con coraggio, e sono davvero troppo fiero di questo, perchè ogni lotta che abbiamo combattuto l abbiamo vinta con grande forza e spirito di squadra, perchè i problemi che abbiamo avuto, li abbiamo affrontati e li affronteremo ancora INSIEME' },
+      { emoji: '🎂', nome: 'Il tuo compleanno',             testo: 'Uno dei ricordi piu dolci e limpidi che io abbia: la festa del tuo compleanno, mi ricordo ancora io e te al sushi, i fiori e il ristorante, ci eravamo messi tutti d accordo perchè ti volevamo e ti vogliamo ancora bene (io ti amo). Devo sempre ringraziare Dio per avermi dato una ragazza che al suo compleanno, quando soffia le candeline, non esprime desideri materiali, ma desidera stare con me tutta la vita, tenendomi la mano... perchè mi hai insegnato grazie a questo gesto che non conta tanto il desiderio impossibile, ma conta il desiderio realizzabile solo se lo vogliamo, e io e te lo vogliamo tanto, non me lo scorderò mai.' },
+      { emoji: '🏙️', nome: 'Modena insieme',               testo: 'Ho voluto mettere questo ricordo perchè, pur non essendo stata una giornata pazzesca, è stato il nostro primo viaggio in tutti i sensi e ce ne aspetteranno tanti altri (Firenze aspettaci)' },
+    ];
+
+    const raggi  = [60, 80, 100, 115, 90, 70, 105, 85, 120, 75];
+    const angoli = [0, 36, 72, 108, 144, 180, 216, 252, 288, 324];
+    const galassia = document.getElementById('galassia');
+
+    ricordi.forEach((r, i) => {
+      const rad = angoli[i] * Math.PI / 180;
+      const x = 150 + raggi[i] * Math.cos(rad);
+      const y = 150 + raggi[i] * Math.sin(rad);
+
+      const star = document.createElement('div');
+      star.className = 'stella-ricordo';
+      star.textContent = r.emoji;
+      star.style.left = x + 'px';
+      star.style.top  = y + 'px';
+      star.title = r.nome;
+
+      star.addEventListener('click', () => {
+        document.getElementById('titolo-ricordo').textContent = r.emoji + ' ' + r.nome;
+        document.getElementById('testo-ricordo').textContent  = r.testo;
+      });
+
+      galassia.appendChild(star);
+    });
+    // --- fiori ---
+const colori = [
+  ['#d87fd8', '#c45fc4', '#b040b0'],
+  ['#e87fa8', '#d45f88', '#c04070'],
+  ['#a87fd8', '#8860c0', '#7040a8'],
+  ['#e8a0d0', '#d080b8', '#b860a0'],
+  ['#c8a0e8', '#a880d0', '#8860b8'],
+  ['#f0a0c0', '#d880a8', '#c06090'],
+];
+
+const giardino = document.getElementById('giardino');
+
+for (let f = 0; f < 6; f++) {
+  const c = colori[f];
+  const delay = f * 0.18;
+
+  const fiore = document.createElement('div');
+  fiore.className = 'fiore';
+  fiore.style.animationDelay = delay + 's';
+
+  const petali = document.createElement('div');
+  petali.className = 'petali';
+
+  for (let p = 0; p < 6; p++) {
+    const petalo = document.createElement('div');
+    petalo.className = 'petalo';
+    const angolo = p * 60;
+    petalo.style.background = c[p % c.length];
+    petalo.style.transform = `translate(-50%, -100%) rotate(${angolo}deg)`;
+    petali.appendChild(petalo);
+  }
+
+  const centro = document.createElement('div');
+  centro.className = 'centro-fiore';
+  petali.appendChild(centro);
+
+  const stelo = document.createElement('div');
+  stelo.className = 'stelo';
+  stelo.style.position = 'relative';
+
+  const fogliaSx = document.createElement('div');
+  fogliaSx.className = 'foglia sinistra';
+  const fogliaDx = document.createElement('div');
+  fogliaDx.className = 'foglia destra';
+  stelo.appendChild(fogliaSx);
+  stelo.appendChild(fogliaDx);
+
+  fiore.appendChild(petali);
+  fiore.appendChild(stelo);
+  giardino.appendChild(fiore);
+}
+  </script>
+
+</body>
+</html>
